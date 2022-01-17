@@ -1,7 +1,7 @@
 {
-  "name": "kafka-produce-api",
+  "name": "kafka-consumer-api",
   "version": "1.0.0",
-  "description": "Kafka Producer Api",
+  "description": "Kafka Consumer Api",
   "main": "app.js",
   "directories": {
     "doc": "docs"
