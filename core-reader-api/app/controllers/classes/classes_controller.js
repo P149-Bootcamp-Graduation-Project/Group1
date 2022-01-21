@@ -1,4 +1,4 @@
-import Classes from "../../services/classesService.js";
+import Classes from "../../services/classes_service.js";
 
 // This controller will be used to create class information
 export const createClass = async (req, res) => {
@@ -62,7 +62,7 @@ export const findClassById = async (req, res) => {
 //This controller will be used to find all class information
 export const findAllClasses = async (req, res) => {
   try {
-    const response = await Classes.getAllClassesQuery();
+    const response = await Classes.getAllQuery();
     return res
       .status(200)
       .send({ message: "All classes read successfully!", response });

@@ -1,5 +1,5 @@
 import classModel from "../models/classes.js";
-import DbService from "./databaseService.js";
+import DbService from "./database_service.js";
 
 class Classes extends DbService {
   model = classModel;
