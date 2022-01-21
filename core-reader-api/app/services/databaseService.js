@@ -5,6 +5,7 @@ class DbService {
     this.model = model;
   }
 
+  //this method is used to add data to the table
   insertQuery = async (params) => {
     let query = [`insert into ${this.model.type} (`];
     let set = [];
@@ -24,6 +25,7 @@ class DbService {
     return response.rows[0];
   };
 
+  //this method is used to edit the data in the table
   updateByIdQuery = async (id, params) => {
     const data = Object.values(params);
     const keys = Object.keys(params);
@@ -39,30 +41,57 @@ class DbService {
     return response.rows[0];
   };
 
+  //this method is used to delete the data in the table
   deleteByIdQuery = async (id) => {
-    // const device = await pg_client.query("DELETE FROM devices WHERE id = $1", [id]);
     let query = `delete from ${this.model.type} where id=${id} returning *`;
     const response = await pg_client.query(query);
     return response.rows[0];
   };
 
-  findByIdQuery = async (id) => {
-    // "SELECT vehicle_id, device_type_id, device_name, is_online, is_active FROM devices WHERE id=$1",
-    // let query = `select from ${this.model.type} where id=${id} returning *`;
+  // this method is used to find the data or datas in the table by value
+  findByValueQuery = async (params) => {
+    const data = Object.values(params);
+    const keys = Object.keys(params);
     let query = [`select `];
     let set = [];
+    let set2 = [];
     Object.keys(this.model.columns).forEach((key) => {
+      set.push(key);
+    });
+    query.push(set.join(", "));
+    query.push(` from ${this.model.type} where `);
+
+    // select id, school_id, class_id,.. form log_temp where
+
+    keys.forEach((k, i) => {
+      set2.push(`${k} = $${i + 1}`);
+    });
+    query.push(set2.join(" and "));
+
+    //select id, school_id, class_id,.. form log_temp where school_id = $1 and class_id = $2 and sensor_id = $3
+
+    query = query.join(" ");
+    const response = await pg_client.query(query, data);
+    return response.rows;
+  };
+
+  // this method is used to find the data in the table by id
+  findByIdQuery = async (id) => {
+    let query = [`select `];
+    let set = [];
+    Object.keys(this.model.columns).forEach((key, i) => {
       if (key !== "id") {
         set.push(key);
       }
     });
     query.push(set.join(", "));
-    query.push(` from ${this.model.type} where id=${id}`);
+    query.push(` from ${this.model.type} where`);
     query = query.join(" ");
     const response = await pg_client.query(query);
     return response.rows[0];
   };
 
+  // this method is used to find all the data in the table
   getAllClassesQuery = async () => {
     let query = [`select `];
     let set = [];
@@ -76,72 +105,3 @@ class DbService {
 }
 
 export default DbService;
-
-// const db=require("../database_connection")
-// // db.connect()
-//  module.exports = class Service {
-//   //CRUD transactions
-//   constructor(model){
-//     this.model=model
-//   }
-//   async insertQuery(data){
-//     let query = [`insert into ${this.model.type}(`]
-//     let set = []
-//     let values = []
-//     Object.keys(this.model.cols).forEach(function (key, i) {
-//       if (key !== "id") {
-//         set.push(key)
-//         values.push(`$${i + 1}`)
-//       }
-//     })
-//     query.push(set.join(", "));
-//     query.push(") values(")
-//     query.push(values.join(", "))
-//     query.push(")  RETURNING *")
-
-// console.log(query.join(" "), data);
-// db.query(query.join(" "), data, (err, res) => {
-//   if (err) return -1;
-//   console.log(res.rows + "---->");
-//   db.end();
-// });
-
-//   }
-
-// async updateQueryById(id, cols, type) {
-
-//   let query = [`UPDATE ${type}`]
-//   query.push("SET")
-//   let set = []
-//   Object.keys(cols).forEach(function (key, i) {
-//     if (key !== "id") {
-//       set.push(key + " = ($" + i + ")")
-//     }
-//   })
-//   query.push(set.join(", "))
-//   query.push("WHERE id = " + id + " RETURNING *")
-//   return query.join(" ")
-// }
-
-//   getColValues(body){
-//     const arr = Object.keys(body)
-//       .filter((item) => item !== "id")
-//       .map(function (key) {
-//         return body[key]
-//       })
-//     return arr
-//   }
-
-//   getAllItems(){
-//     console.log(this.model.type)
-//     db.query(select * from ${this.model.type}, (err,res)=>{
-//       if(err)
-//           return -1;
-
-//       db.end()
-//       console.log(res.rows)
-//       return this.getColValues(res.rows)
-//     })
-//   }
-
-//  }

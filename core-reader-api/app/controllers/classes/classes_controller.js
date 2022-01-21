@@ -45,6 +45,7 @@ export const deleteClassById = async (req, res) => {
   }
 };
 
+//This controller will be used to find class information by id
 export const findClassById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -58,9 +59,24 @@ export const findClassById = async (req, res) => {
   }
 };
 
+//This controller will be used to find all class information
 export const findAllClasses = async (req, res) => {
   try {
     const response = await Classes.getAllClassesQuery();
+    return res
+      .status(200)
+      .send({ message: "All classes read successfully!", response });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).send({ message: e });
+  }
+};
+
+//This controller will be used to find all class information by value
+export const findClassesByValues = async (req, res) => {
+  const { body } = req;
+  try {
+    const response = await Classes.findByValueQuery(body);
     return res
       .status(200)
       .send({ message: "All classes read successfully!", response });
