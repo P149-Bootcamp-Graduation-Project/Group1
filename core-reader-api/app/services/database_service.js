@@ -22,7 +22,15 @@ class DbService {
     query.push(") returning *");
     query = query.join(" ");
     const response = await pg_client.query(query, data);
-    return response.rows[0];
+    const data_response = {
+      response: response && response.rows[0] ? response.rows[0] : {},
+      status: response && response.rows[0] ? 201 : 400,
+      message:
+        response && response.rows[0]
+          ? this.model.type + " create successfully"
+          : this.model.type + " Bad request",
+    };
+    return data_response;
   };
 
   //this method is used to edit the data in the table
@@ -38,14 +46,30 @@ class DbService {
     query.push("where id = " + id + " returning *");
     query = query.join(" ");
     const response = await pg_client.query(query, data);
-    return response.rows[0];
+    const data_response = {
+      response: response && response.rows[0] ? response.rows[0] : {},
+      status: response && response.rows[0] ? 200 : 404,
+      message:
+        response && response.rows[0]
+          ? this.model.type + " update successfully"
+          : this.model.type + " Not Found",
+    };
+    return data_response;
   };
 
   //this method is used to delete the data in the table
   deleteByIdQuery = async (id) => {
     let query = `delete from ${this.model.type} where id=${id} returning *`;
     const response = await pg_client.query(query);
-    return response.rows[0];
+    const data = {
+      response: response && response.rows[0] ? response.rows[0] : {},
+      status: response && response.rows[0] ? 200 : 404,
+      message:
+        response && response.rows[0]
+          ? this.model.type + " deleted successfully"
+          : this.model.type + " Not Found",
+    };
+    return data;
   };
 
   // this method is used to find the data or datas in the table by value
@@ -72,7 +96,15 @@ class DbService {
 
     query = query.join(" ");
     const response = await pg_client.query(query, data);
-    return response.rows;
+    const data_response = {
+      response: response && response.rows.length > 0 ? response.rows : [],
+      status: response && response.rows.length > 0 ? 200 : 404,
+      message:
+        response && response.rows.length > 0
+          ? this.model.type + " read successfully"
+          : this.model.type + " Not Found",
+    };
+    return data_response;
   };
 
   // this method is used to find the data in the table by id
@@ -88,7 +120,15 @@ class DbService {
     query.push(` from ${this.model.type} where id=${id}`);
     query = query.join(" ");
     const response = await pg_client.query(query);
-    return response.rows[0];
+    const data = {
+      response: response && response.rows[0] ? response.rows[0] : {},
+      status: response && response.rows[0] ? 200 : 404,
+      message:
+        response && response.rows[0]
+          ? this.model.type + " read successfully"
+          : this.model.type + " not found",
+    };
+    return data;
   };
 
   // this method is used to find all the data in the table
@@ -100,7 +140,15 @@ class DbService {
     query.push(` from ${this.model.type}`);
     query = query.join(" ");
     const response = await pg_client.query(query);
-    return response.rows;
+    const data = {
+      response: response && response.rows.length > 0 ? response.rows : [],
+      status: response && response.rows.length > 0 ? 200 : 404,
+      message:
+        response && response.rows.length > 0
+          ? this.model.type + " read successfully"
+          : this.model.type + " Not Found",
+    };
+    return data;
   };
 }
 

@@ -6,10 +6,10 @@ export const createClass = async (req, res) => {
     let body = { ...req.body };
     const created_at = new Date();
     body.created_at = created_at;
-    const response = await Classes.insertQuery(body);
+    const data = await Classes.insertQuery(body);
     return res
-      .status(201)
-      .send({ messages: "Class created successfully!", response });
+      .status(data.status)
+      .send({ messages: data.message, response: data.response });
   } catch (e) {
     console.log(e);
     return res.status(500).send({ message: e });
@@ -21,10 +21,10 @@ export const updateClassById = async (req, res) => {
   const { id } = req.params; // --> const id = req.params.id;
   const { body } = req; // --> const body = req.body;
   try {
-    const response = await Classes.updateByIdQuery(id, body);
+    const data = await Classes.updateByIdQuery(id, body);
     return res
-      .status(200)
-      .send({ message: "Class updated successfully!", response });
+      .status(data.status)
+      .send({ messages: data.message, response: data.response });
   } catch (e) {
     console.log(e);
     return res.status(500).send({ message: e });
@@ -35,10 +35,10 @@ export const updateClassById = async (req, res) => {
 export const deleteClassById = async (req, res) => {
   const { id } = req.params;
   try {
-    const response = await Classes.deleteByIdQuery(id);
+    const data = await Classes.deleteByIdQuery(id);
     return res
-      .status(200)
-      .send({ message: "Class deleted successfully!", response });
+      .status(data.status)
+      .send({ messages: data.message, response: data.response });
   } catch (e) {
     console.log(e);
     return res.status(500).send({ message: e });
@@ -49,10 +49,10 @@ export const deleteClassById = async (req, res) => {
 export const findClassById = async (req, res) => {
   const { id } = req.params;
   try {
-    const response = await Classes.findByIdQuery(id);
+    const data = await Classes.findByIdQuery(id);
     return res
-      .status(200)
-      .send({ message: "Class read successfully!", response });
+      .status(data.status)
+      .send({ message: data.message, response: data.response });
   } catch (e) {
     console.log(e);
     return res.status(500).send({ message: e });
@@ -62,10 +62,10 @@ export const findClassById = async (req, res) => {
 //This controller will be used to find all class information
 export const findAllClasses = async (req, res) => {
   try {
-    const response = await Classes.getAllQuery();
+    const data = await Classes.getAllQuery();
     return res
-      .status(200)
-      .send({ message: "All classes read successfully!", response });
+      .status(data.status)
+      .send({ messages: data.message, response: data.response });
   } catch (e) {
     console.log(e);
     return res.status(500).send({ message: e });
@@ -76,12 +76,11 @@ export const findAllClasses = async (req, res) => {
 export const findClassesByValues = async (req, res) => {
   const { body } = req;
   try {
-    const response = await Classes.findByValueQuery(body);
+    const data = await Classes.findByValueQuery(body);
     return res
-      .status(200)
-      .send({ message: "All classes read successfully!", response });
+      .status(data.status)
+      .send({ messages: data.message, response: data.response });
   } catch (e) {
-    console.log(e);
     return res.status(500).send({ message: e });
   }
 };
