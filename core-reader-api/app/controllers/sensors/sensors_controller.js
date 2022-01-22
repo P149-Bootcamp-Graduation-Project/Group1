@@ -1,6 +1,6 @@
 import Sensors from "../../services/sensors_service.js";
 
-// This controller will be used to create class information
+// This controller will be used to create sensor information
 export const createSensor = async (req, res) => {
   try {
     let body = { ...req.body };
@@ -16,7 +16,7 @@ export const createSensor = async (req, res) => {
   }
 };
 
-//This controller will be used to edit class information
+//This controller will be used to edit sensor information
 export const updateSensorById = async (req, res) => {
   const { id } = req.params; // --> const id = req.params.id;
   const { body } = req; // --> const body = req.body;
@@ -31,7 +31,7 @@ export const updateSensorById = async (req, res) => {
   }
 };
 
-//This controller will be used to delete class information
+//This controller will be used to delete sensor information
 export const deleteSensorById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -45,7 +45,7 @@ export const deleteSensorById = async (req, res) => {
   }
 };
 
-//This controller will be used to find class information by id
+//This controller will be used to find sensor information by id
 export const findSensorById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -59,7 +59,7 @@ export const findSensorById = async (req, res) => {
   }
 };
 
-//This controller will be used to find all class information
+//This controller will be used to find all sensor information
 export const findAllSensors = async (req, res) => {
   try {
     const data = await Sensors.getAllQuery();
@@ -72,7 +72,7 @@ export const findAllSensors = async (req, res) => {
   }
 };
 
-//This controller will be used to find all class information by value
+//This controller will be used to find all sensor information by value
 export const findSensorsByValues = async (req, res) => {
   const { body } = req;
   try {

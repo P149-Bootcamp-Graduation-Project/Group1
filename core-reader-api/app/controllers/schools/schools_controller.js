@@ -1,6 +1,6 @@
 import Schools from "../../services/schools_service.js";
 
-// This controller will be used to create class information
+// This controller will be used to create school information
 export const createSchool = async (req, res) => {
   try {
     let body = { ...req.body };
@@ -16,7 +16,7 @@ export const createSchool = async (req, res) => {
   }
 };
 
-//This controller will be used to edit class information
+//This controller will be used to edit school information
 export const updateSchoolById = async (req, res) => {
   const { id } = req.params; // --> const id = req.params.id;
   const { body } = req; // --> const body = req.body;
@@ -31,7 +31,7 @@ export const updateSchoolById = async (req, res) => {
   }
 };
 
-//This controller will be used to delete class information
+//This controller will be used to delete school information
 export const deleteSchoolById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -45,7 +45,7 @@ export const deleteSchoolById = async (req, res) => {
   }
 };
 
-//This controller will be used to find class information by id
+//This controller will be used to find school information by id
 export const findSchoolById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -59,7 +59,7 @@ export const findSchoolById = async (req, res) => {
   }
 };
 
-//This controller will be used to find all class information
+//This controller will be used to find all school information
 export const findAllSchools = async (req, res) => {
   try {
     const data = await Schools.getAllQuery();
@@ -72,7 +72,7 @@ export const findAllSchools = async (req, res) => {
   }
 };
 
-//This controller will be used to find all class information by value
+//This controller will be used to find all school information by value
 export const findSchoolsByValues = async (req, res) => {
   const { body } = req;
   try {
