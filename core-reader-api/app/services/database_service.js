@@ -1,4 +1,5 @@
 import pg_client from "../adapters/database/postgresql.js";
+import rd_client from "../adapters/database/redis.js";
 
 class DbService {
   constructor(model) {
@@ -109,6 +110,9 @@ class DbService {
 
   // this method is used to find the data in the table by id
   findByIdQuery = async (id) => {
+    const redis_key = this.model.type + "_" + id;
+    let data = await rd_client.get(redis_key);
+    if (data) return JSON.parse(data);
     let query = [`select `];
     let set = [];
     Object.keys(this.model.columns).forEach((key, i) => {
@@ -120,7 +124,7 @@ class DbService {
     query.push(` from ${this.model.type} where id=${id}`);
     query = query.join(" ");
     const response = await pg_client.query(query);
-    const data = {
+    data = {
       response: response && response.rows[0] ? response.rows[0] : {},
       status: response && response.rows[0] ? 200 : 404,
       message:
@@ -128,6 +132,7 @@ class DbService {
           ? this.model.type + " read successfully"
           : this.model.type + " not found",
     };
+    await rd_client.setEx(redis_key, 180, JSON.stringify(data));
     return data;
   };
 
