@@ -1,5 +1,6 @@
 import { createClient } from "redis";
-
+import dotenv from "dotenv";
+dotenv.config();
 // rd_client = createClient({ url: "redis://" + process.env.LOCAL_REDIS_HOST });
 
 const rd_client = createClient({
