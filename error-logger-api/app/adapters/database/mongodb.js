@@ -1,5 +1,3 @@
-// const { MongoClient } = require("mongodb");
-
 import dotenv from "dotenv";
 dotenv.config();
 import { MongoClient } from "mongodb";
@@ -15,13 +13,21 @@ async function run() {
     await client.connect();
     await client.db(process.env.MONGO_DEFAULT_DB).command({ ping: 1 });
     console.log("::> MongoDB Server is Ready");
-  } finally {
-    await client.close();
+  } catch (err) {
+    throw new Error(err);
   }
 }
 run().catch(console.dir);
 
 export default client;
+
+/* CREATE COLLECTION EXAMPLE
+const db = mongo_client.db('kisi');
+db.createCollection('kisiler', (err, result) => {
+    if (err) throw err;
+    console.log('Koleksiyon oluşturuldu.');
+    mongo_client.close();
+});  */
 
 /* CREATE COLLECTION EXAMPLE
 const db = mongo_client.db('kisi');

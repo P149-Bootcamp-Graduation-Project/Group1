@@ -16,7 +16,8 @@ class DbService {
     const data = await client
       .db(process.env.MONGO_DEFAULT_DB)
       .collection(process.env.MONGO_DEFAULT_COLLECTION)
-      .find();
+      .find()
+      .toArray();
     return data;
   };
 }

@@ -5,8 +5,8 @@ export const createErrorLog = async (req, res) => {
   try {
     console.log("buraya geldi mi?, controller");
     params.created_at = new Date();
-    const res = await DbService.insertOne(params);
-    if (res) {
+    const result = await DbService.insertOne(params);
+    if (result) {
       return res.status(201).send({ message: "Log created successfully" });
     }
     return res.status(400).send({ message: "Something went wrong" });
@@ -18,11 +18,11 @@ export const createErrorLog = async (req, res) => {
 
 export const getAllErrorLogs = async (req, res) => {
   try {
-    const res = await DbService.insertOne(param);
-    if (res) {
+    const result = await DbService.getAllLogs();
+    if (result) {
       return res
-        .status(201)
-        .send({ message: "Logs read successfully", response: res });
+        .status(200)
+        .send({ message: "Logs read successfully", response: result });
     }
     return res.status(404).send({ message: "Logs NOT FOUND" });
   } catch (e) {
