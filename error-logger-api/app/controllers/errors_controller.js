@@ -3,7 +3,6 @@ import DbService from "../service/db_service.js";
 export const createErrorLog = async (req, res) => {
   const params = { ...req.body };
   try {
-    console.log("buraya geldi mi?, controller");
     params.created_at = new Date();
     const result = await DbService.insertOne(params);
     if (result) {
