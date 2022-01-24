@@ -78,9 +78,9 @@ gösterilmiştir.
 
 - [Node.js](https://nodejs.org/en/)
 - [PostgreSQL](https://www.postgresql.org/)
-- [Redis](https://redis.io/)
-- [MongoDB](https://www.mongodb.com/)
-- [Kafka.js](https://kafka.js.org/)
+- [Redis](https://vuejs.org/)
+- [MongoDB](https://angular.io/)
+- [Kafka.js](https://svelte.dev/)
 
 <div id="top"></div>
 
@@ -177,8 +177,7 @@ GROUP1
 
 - [Ömer Alper ODAMAN](https://github.com/alperodaman)
 - [Burak ALTUNTAŞ](https://github.com/baltuntas3)
-- [Beyzanur AKIN](https://github.com/beyzanurakin)
 - [Emirhan YILMAZER]()
-
+- [Beyzanur AKIN](https://github.com/beyzanurakin)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
