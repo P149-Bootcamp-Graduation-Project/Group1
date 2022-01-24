@@ -22,7 +22,6 @@
       </ul>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#team-members">TEAM</a></li>
   </ol>
 </details>
@@ -31,56 +30,41 @@
 
 ## About The Project
 
-OKUL Enerji Takip Sistemi
-Tanıtım
-Okul enerji takip sistemi (monitoring).
-Okullarda bulunan sınıfların, ısı dereceleri, hava kaliteleri ve sınıfın
-ortalama elektrik tüketimini takip edebileceğimiz bir microservice serisi
-yapılacak.
-3 farklı sensor simule edilip saniyelik olarak data üretecek. Üretilen bu
-data REST API (producer) tarafından okunup kuyruğa eklenecek.
-Kuyruğa eklenen verilerin işlenmesini yine REST API(consumer) tarafı
-işleyip veritabanına kaydedecek. Hata oluşması durumunda Mongodb’ye error
-logları başka bir API ile işlenecek.
-Son olarak tüm dataları okumak ve error logları takip için bir Reader API
-geliştirilip sistemin herşeyi o api aracılığı ile analiz ya da monitorize
-edilebilecek.
+### OKUL Enerji Takip Sistemi
 
-- Sistemde 3 farklı veritabanı kullanılacak.
-- Tüm Servisler NodeJS ile yazılacak
-- Geliştirme ortamı olarak Docker teknolojisi kullanılacak
-- Tüm öğrencilere Nodejs Microservice kemik yapısı ile docker dosyaları
-  oluşturuldu ve dağıtıldı
-- Redis ile de kısa süreli cache yapısı kullanılacak
-- Proje öğrencilere giriş seviyesinde anlatıldı
-- Tüm öğrenciler 6 kişilik gruplarda küme halinde çalışacaklar.
-- Her grubun başında bir yönlendirici ve her yönlendiriciye yardımcı
-  olacak bir inavitas çalışanı olacak. Resim 2 de çalışma grupları
-  listelenmiştir.
-- Resim 1 de ise projenin ana hatları ve yapısı şema halinde
-gösterilmiştir.
-<div align="center"><img src="./images/school-energy-system.png" width="500" height="500">Resim 1</div>
+A microservice series will be made in which we will be able to track the temperature, air quality, and average electricity consumption of the classrooms in the schools. 3 different sensors will be simulated and generate data in seconds. This generated data will be read by the REST API (producer) and added to the queue. The REST API(consumer) side will again process the processing of the data added to the queue and save it to the database. In case of an error, the error logs to Mongodb will be processed with another API. Finally, a Reader API has been developed to read all the data and keep track of error logs, and everything in the system can be analyzed or monitored using this API.
 
-## Mikro Servisler
+- 3 different databases will be used in the system.
+- All Services will be written in NodeJS.
+- Docker technology will be used as the development environment.
+- Docker files with Nodejs Microservice bone structure were created and distributed to all students.
+- A short-term cache structure will also be used with Redis.
+- The project was explained to the students at the introductory level.
+- All students will work in clusters in groups of 6 people.
+- At the head of each group will be a router and an Inavitas employee who will help each router. Figure 2 also lists the working groups.
+- In Figure 1, the outline and structure of the project are shown in a diagram.
+<div align="center"><img src="./images/school-energy-system.png" width="500" height="500">Figure 1</div>
+
+## Microservices
 
 - Sensor reader (Producer)
 - Kafka data reader (Consumer)
 - Error Log collector
 - Data reader class by class
 
-## Sensörler & Araçlar
+## Sensors & Tools
 
-- Isı sensörü
-- Hava Kalite Ölçüm
-- Elektrik Tüketim Sayacı
+- Heat sensor
+- Air Quality Measurement
+- Electricity Consumption Meter
 
 ## Built With
 
 - [Node.js](https://nodejs.org/en/)
 - [PostgreSQL](https://www.postgresql.org/)
-- [Redis](https://vuejs.org/)
-- [MongoDB](https://angular.io/)
-- [Kafka.js](https://svelte.dev/)
+- [Redis](https://redis.io/)
+- [MongoDB](https://www.mongodb.com/)
+- [Kafka.js](https://kafka.apache.org/)
 
 <div id="top"></div>
 
@@ -92,10 +76,12 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-- npm
-  ```sh
-  npm install
-  ```
+- Node-js
+- Postgresql
+- MongoDB
+- Redis
+- Kafka
+- Postman
 
 ### Installation
 
@@ -103,9 +89,23 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    git clone https://github.com/P149-Bootcamp-Graduation-Project/Group1.git
    ```
-2. Install NPM packages
+2. Install NPM packages for core-reader-api and run
    ```sh
+   cd core-reader-api
    npm install
+   npm run dev
+   ```
+3. Install NPM packages for error-loggerer-api and run
+   ```sh
+   cd error-loggerer-api
+   npm install
+   npm run dev
+   ```
+4. Install NPM packages for kafka-consumer-api and run
+   ```sh
+   cd kafka-consumer-api
+   npm install
+   npm run dev
    ```
 
 <!-- ROADMAP -->
@@ -161,23 +161,13 @@ GROUP1
     └── docs
 ```
 
-<!-- CONTRIBUTING -->
-
-## Contributing
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 <!-- ACKNOWLEDGMENTS -->
 
 ## Team Members
 
 - [Ömer Alper ODAMAN](https://github.com/alperodaman)
 - [Burak ALTUNTAŞ](https://github.com/baltuntas3)
-- [Emirhan YILMAZER]()
 - [Beyzanur AKIN](https://github.com/beyzanurakin)
+- [Emirhan YILMAZER]()
 
 <p align="right">(<a href="#top">back to top</a>)</p>
