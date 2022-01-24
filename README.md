@@ -43,7 +43,7 @@ A microservice series will be made in which we will be able to track the tempera
 - All students will work in clusters in groups of 6 people.
 - At the head of each group will be a router and an Inavitas employee who will help each router. Figure 2 also lists the working groups.
 - In Figure 1, the outline and structure of the project are shown in a diagram.
-<div align="center"><img src="./images/school-energy-system.png" width="500" height="500">Figure 1</div>
+<div align="center"><img src="./images/school-energy-system.png" width="500" height="500"><p>Figure 1</p></div>
 
 ## Microservices
 
